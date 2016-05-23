@@ -1,0 +1,45 @@
+<svg viewBox="0 0 50 20"  preserveAspectRatio="xMidYMid meet" >
+    <defs>
+        <linearGradient id="blackGradient">
+            <stop style="stop-color:black" offset="0%"/>
+            <stop style="stop-color:silver" offset="30%"/>
+            <stop style="stop-color:black" offset="32%"/>
+            <stop style="stop-color:silver" offset="60%"/>
+            <stop style="stop-color:black" offset="62%"/>
+            <stop style="stop-color:silver" offset="80%"/>
+            <stop style="stop-color:black" offset="82%"/>
+            <stop style="stop-color:black" offset="100%"/>
+        </linearGradient>
+        <linearGradient id="nbhGradient">
+            <stop style="stop-color:lightBlue" offset="0%"/>
+            <stop style="stop-color:royalblue" offset="15%"/>
+            <stop style="stop-color:lightBlue" offset="30%"/>
+            <stop style="stop-color:royalblue" offset="45%"/>
+            <stop style="stop-color:lightBlue" offset="65%"/>
+            <stop style="stop-color:royalblue" offset="80%"/>
+            <stop style="stop-color:lightblue" offset="100%"/>
+        </linearGradient>
+        <filter id="skygger">
+            <feGaussianBlur stdDeviation="1.9" in="SourceAlpha"/>
+            <feOffset result="offsetBlur" dx="-5" dy="-4"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="sourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <g transform="scale(0.5)">
+        <rect x="0" width="290px" height="146px" id="logonavn" y="0" style="fill: royalblue; stroke: none;"/>
+        <g id="nbhLogo" transform="scale(0.8) translate(120,60)">
+            <circle fill="yellow" r="50" id="sola" cx="60" cy="60"/>
+            <text fill="black" x="29" y="94" style="font-family: Arial; font-size: 90px;" font-weight="bold">H</text>
+            <text fill="black" x="49" y="53" style="font-family: Arial; font-size: 35px;" font-weight="bold">N</text>
+            <text fill="black" x="49" y="93" style="font-family: Arial; font-size: 35px;" font-weight="bold">B</text>
+        </g>
+        <g transform="scale(1)">
+            <text x="10" font-size="40px" y="44" fill="gray" style="font-family: Arial;" filter="url(#skygger)"
+                font-weight="bold">Ny blå himmel</text>
+            <text fill="url(#nbhGradient)" x="10" y="44" font-size="40px" style="font-family: Arial;" font-weight="bold">Ny blå himmel</text>
+        </g>
+    </g>
+</svg>

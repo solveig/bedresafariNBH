@@ -1,0 +1,146 @@
+ <section>
+    <header>
+    <nav>
+      <ul>     
+          {% if crm.status == 'Flystriper' %}
+            <li   class="buttonb"><a  href="/airstrp" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+       	  {% if crm.status == 'Kjemikaler' %}
+            <li   class="buttonb"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == 'PH' %}
+            <li   class="buttonb"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == 'Kommentar' %}
+            <li   class="buttonb"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+      </ul>
+      <select class="bottons"  name="psi_id"  autofocus required onchange="swapOpts(this.options[selectedIndex].text,this.options[selectedIndex].value);">
+    		      <option>{{crmC.new_txt}}</option>
+              {% for cli in crm.client %}
+                 {% if {{crm.username}} == {{cli.contact}} and {{cli.status}} in {{crm.showUp}}%}    
+                        <option id ="pid" value="{{cli.status}}">{{cli.psi_id}} </option>                     
+                  {% endif %}
+              {% endfor %}
+      </select>     
+    </nav>
+    </header>	
+     <form name="theForm "  action="/newCrmClient" method="POST">    
+       <fieldset>
+            <div id= bilder></div>
+            <div id="valgtFlystriper" class="visible">
+               <div class= "blokk2">
+               	  <h2 > {{crmC.registration_txt}} </h2>  
+                  <label for="studyDate">
+                	  <input type="date" id="studyDate" name="studyDate"    >{{crmC.date_txt}}</label> 
+              	  <label for="studyTime"> 
+              	  <input type="time" id="studyTime" name="studyTime"    >{{crmC.clock_txt}}</label>            
+               </div>     
+               <div class= "blokk2">
+                  <h2> {{crmC.duration_txt}} </h2>  
+                  <label for = "studyHours"> 
+                  <input type="number" id="studyHours" name="studyHours" min=0 max=1000 >  {{crmC.studyHours_txt}} </label>     
+                  <label for = "studyMin"> 
+                  <input type="number" id="studyMin" name="studyMin" min=0 max=60 >{{crmC.studyMin_txt}} </label>       
+               </div>     
+              <div class= "blokk">
+                <h2>{{crmC.airstrips_txt}}</h2>
+                <ul>
+                  <li><label  class="velg" for  = "airstrips"> <input type="checkbox" id="airstrips"  name ="airA"  value="X">  
+                  {{crmC.air_a}}</label> </li>                
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airB"  value="X">   
+                  {{crmC.air_b}}</label></li>
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airC"  value="X">   
+                  {{crmC.air_c}}</label></li>
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airD"  value="X">   
+                  {{crmC.air_d}}</label></li>
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airE"  value="X">                 	
+                  {{crmC.air_e}}</label></li>
+                  <li><label class="velg" for  = "airstrips"> <input type="checkbox" id="airstrips"  name ="airF"  value="X">   
+                  {{crmC.air_f}}</label></li>
+                  <li><label class="velg" for = "cloud"><input type="checkbox" id="cloud"  name ="cloA"  value="X"> 
+                  {{crmC.cloud_txt}}</label></li>
+                </ul>  
+              </div>  
+              <div class= "blokk">
+                <label for = "moreAirNr">   
+                <input type="number" id="moreAirNr" name="moreAirNr" min=0 max=100 > {{crmC.sim_a}} </label>    
+                <label for = "noStripeNr">  
+                <input type="number" id="noStripeNr" name="noStripeNr" min=0 max=100 > {{crmC.sim_b}} </label>     
+              </div>  
+              <div class= "blokk">
+               <h2>{{crmC.forcast_txt}} </h2>  
+               <label for  = "forcastYes">
+               <input type = "radio" name = "forcast" id = "forcastYes" value = "YES" />{{crmC.yes_txt}}</label>
+               <label for = "forcastNo">
+               <input type = "radio" name = "forcast" id = "forcatNo" value = "NO"/>{{crmC.no_txt}}</label>
+               <label for = "forcastdoNotKnow">
+               <input type = "radio" name = "forcast" id = "forcatDoNotKnow" value = "doNotKnow"/>{{crmC.doNotKnow_txt}}</label>
+              </div>     
+              <div class= "blokk">
+              	<h2>{{crmC.airtrafic_txt}}</h2>
+                <label for  = "airtraficYes">
+                <input type = "radio" name = "airtrafic" id = "airraficYes" value = "YES" />{{crmC.yes_txt}}</label>
+                <label for = "airtraficNo">
+                <input type = "radio" name = "airtrafic" id = "airtraficNo" value = "NO"/>{{crmC.no_txt}}</label>
+               </div>               
+              <div class= "blokk"">
+               <h2>{{crmC.localization_txt}}</h2>
+                <label for  = "address">
+                <input type="text" id="address"  name ="address" value={{crm.address}}>{{crmC.address_txt}}</label>  
+                <input class="bigButton" id="submitAdr" type="button" value={{crmC.useAddress_txt}}>
+                <input class="bigButton" id="submitGps" type="button" value={{crmC.useGPS_txt}}> 
+               <p>{{crmC.posInfo_txt}}</p>
+              </div>
+                      
+              <div class= "blokk">
+                 <label for = "pictures"> {{crmC.pictures_txt}}
+                   <input type="file" id="pictures" multiple value="gg"/>
+                 </label>  
+                 <input class="bigButton" id="submitFiles" type="button" value="testing:" >             
+              </div>               
+         <canvas id="myCanvas" width="512" height="5"></canvas>      
+             <div class= "blokk">
+                  <label for = "videos">{{crmC.videos_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "speed">{{crmC.speed_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "height">{{crmC.height_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "direction">{{crmC.direction_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "aircraft">{{crmC.aircraft_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "airline">{{crmC.airline_txt}}</label>
+              </div>               
+                                          
+           </div>  
+ 
+           <div class= "blokk">  
+              <div id="valgtKommentar" class="hidden">       
+                   <label for = "notes">{{crmC.notes_txt}}</label>
+                   <textarea class="minst" id="notes"  name ="notes" ></textarea>             
+                   <label for="notesDate">{{crmC.notesDate_txt}}</label>   
+                   <input type="date" id="notesDate" name="notesDate"   value={{notesDate}}>
+             </div>
+          </div>               
+       <input type=hidden name=psiNy value=1>
+        <input type=hidden name=status value="iRegistrering">
+        <input type=hidden name=statusNew value="iRegistrering">
+                   
+           <input type="hidden" name="signature" value="{{crm.signature}}">
+           <div class= "blokk">                                     
+           <input class="button3" type="submit" name = "submit1" value="Lagre"  /> 
+           <div onmouseout="document.getElementById('hint').style.display='none';" onmouseover="document.getElementById('hint').style.display='block';" >
+             <p class="what">?</p>    
+             <p id="hint">{{crmC.save_txt}} </p>  
+           </div>
+           </div>               
+      </fieldset>  
+     </form>        
+  </section>  

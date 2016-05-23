@@ -1,0 +1,54 @@
+﻿<!DOCTYPE html>
+<html  lang="en" style='width:100%; height:100%; border:0; margin:0; padding:0;'>
+<head>
+		<meta charset="utf-8">
+	  <meta http-equiv="X-UA-Compatible" content="chrome=1,IE=edge"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="description" content="New Blue Heaven logo">
+		<meta name="keywords" content="nbh, Ny Blå Himmel, sola, sol, skyer, flystriper,Geoengineering,Chemtrail,Contrail,D vitaminer">
+		<meta name="author" content="Solveig Løvhaug">
+		<link rel='stylesheet' type='text/css' href="http://x3dom.org/download/1.6.2/x3dom.css"/>
+		<script type="text/javascript" src="http://x3dom.org/download/1.6.2/x3dom.js"></script>
+		<title>Ny Blå Himmel</title>
+</head>
+<body>
+<x3d id='NBH' showStat='false' showLog='false'  style='width:90%; height:100%; border:0; margin:0; padding:0;'>
+  <scene DEF='scene'>
+    <Background skyColor='0 1 0'></Background>
+    <Viewpoint id="faraway" description='View further away' position='0 0 16'></Viewpoint>
+    <Viewpoint id="closer" description='View closer' position='0 0 10'></Viewpoint>
+    <Transform translation='-5 0 5'>
+    <Shape DEF='nbh'>
+      <Appearance>        
+        <Material 
+          ambientIntensity='0.200'
+          shininess='0.200'
+          diffuseColor='1 0 0'
+          specularColor=".5 .5 .5>
+          
+        </Material>   
+        <ImageTexture  url="./nbhLogolllll.png"></ImageTexture>     
+      </Appearance>
+      <Sphere DEF="sphere" ></Sphere>
+    </Shape>
+    
+    </Transform>
+  <Transform translation='0 -2 0'>
+<Shape>
+<Text string='"Cylinder" "Sensor"'>
+<FontStyle USE='JustifyMiddle'/>
+</Text> 
+<Appearance>
+<Material USE='DarkBlue'></Matrial>
+</Appearance>
+</Shape>
+</Transform> 
+</scene>
+  </x3d>
+  <div id="camera_buttons" style="display: block;">
+    <button  onclick="document.getElementById('faraway').setAttribute('set_bind','true');" style="border: none; background: transparent; display: block">Further away<br></button>
+    <button  onclick="document.getElementById('closer').setAttribute('set_bind','true');" style="border: none; background: transparent; display: block">Closer</button>
+  </div>
+</body>
+</html>

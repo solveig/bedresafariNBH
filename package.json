@@ -1,0 +1,25 @@
+{
+  "name": "prod",
+  "version": "1.0.0",
+  "description": "nbh",
+  "main": "app.js",
+  "dependencies": {
+    "bedre": "^1.0.0",
+    "bcrypt-nodejs": "^0.0.3",
+    "consolidate": "^0.13.1",
+    "date-and-time": "^0.1.8",
+    "express.io": "^1.1.13",
+    "swig": "^1.4.2",
+    "mongodb": "^2.0.47",
+    "validator": "^4.2.1"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "node app.js"
+  },
+  "keywords": [
+    "nbh"
+  ],
+  "author": "Solveig løvhaug",
+  "license": "ISC"
+}

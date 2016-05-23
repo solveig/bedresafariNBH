@@ -1,0 +1,469 @@
+﻿<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">    
+<meta charset="UTF-8">    
+<title>{{title}}</title>
+<link rel='stylesheet' href='href/reset.css'>
+ <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDzbz8uIT-CSJbohCxL-PiXApncTBAy-TA";></script>
+  
+                                                                        
+<script>
+  //kanskje fjerne
+  var myPos={ lat: 59.07951, lng: 11.46435}; // kommer fra databasen ..
+  var lat, lng, zip, address, street_number, state, region,country,city;
+  var geocoder = new google.maps.Geocoder();
+  var infowindow = new google.maps.InfoWindow;
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+
+ }
+</script> 
+   <script>
+function initMap() {
+ 
+  document.getElementById('submitAdr').addEventListener('click', function() {
+    geocodeAddress();
+  });
+  document.getElementById('submitGps').addEventListener('click', function() {
+    initGeoLocation();
+  });
+  
+   document.getElementById('submitFiles').addEventListener('click', function() {
+    setSelectedFile();
+  });
+}
+
+
+function geo_error() {
+  alert("Sorry, no position available.");
+}
+
+var geo_options = {
+  enableHighAccuracy: true, 
+  maximumAge        : 30000, 
+  timeout           : 27000
+};
+
+
+
+
+function handleNoGeolocation(errorFlag) {
+  if (errorFlag) {
+    var content = 'Error: The Geolocation service failed.';
+  } else {
+    var content = 'Error: Your browser doesn\'t support geolocation.';
+  }
+}  
+
+function doGeocode(doing) {
+  geocoder.geocode(doing, function(results, status) {
+    if (status === google.maps.GeocoderStatus.OK) {
+      var comp = results[0].address_components;
+      lat =results[0].geometry.location.lat();
+      lng=results[0].geometry.location.lng();
+      //alert('lat='+lat);
+       for (var i=0; i<comp.length; i++){ alert('a '+comp[i].long_name);
+            switch(comp[i].types[0]){
+                case "postal_code":
+                    zip = comp[i].long_name;
+                    break;
+                case "route":
+                    address = comp[i].long_name;
+                    break;
+                 case "street_number":
+                    street_number = comp[i].long_name;
+                    break;
+                 case "administrative_area_level_1":
+                    state = comp[i].long_name;
+                    break;
+                case "administrative_area_level_2":
+                    region = comp[i].long_name;
+                    break;
+                case "postal_town":
+                    city = comp[i].long_name;
+                    break;                  
+                case "country":
+                    country = comp[i].long_name;
+                    break;  
+                default : 
+                    alert('NewCrmClient:Error in geocodeAddress '+comp[i].types[0]+ 'b '+comp[i].long_name);  
+                    break;                                     
+            }
+        };      
+    } else {
+      alert('Geocode was not successful for the following reason: ' + status);
+    }
+    alert('lat='+lat+' lng='+lng+ ' +zip='+ zip+' city='+city+' country='+country);
+    alert(' address='+address+'  street_number='+street_number+' state='+state+' region='+region);
+         
+  });
+}
+
+function initGeoLocation() {
+
+  // Try HTML5 geolocation
+  if(navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+     var latlng = {'lat': position.coords.latitude, 'lng' :+position.coords.longitude}; 
+      alert('lat='+position.coords.latitude);
+      var doing = {'location': latlng};
+      doGeocode(doing);
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    //'Browser does not support Geolocation');
+    handleNoGeolocation(false);
+  }
+}       
+function geocodeAddress() {
+  var address = document.getElementById('address').value;
+  var doing = {'address': address};
+  doGeocode(doing);
+}
+
+    </script>
+ 
+ 
+ 
+<script>
+  var ny                = new Array('Velg','registrering','arkiv','kommentar'); // last indicate if comment is required
+  var iarkiv       = new Array('Velg','arkiv','kommentar','');
+  var iVedlikehold      = new Array('Velg','avsluttVedlikehold','kommentar','');
+  var id_ind            = 0;
+  var iKommentar        = new Array('Velg','kommentar','');
+  var valg              = "begin";
+
+  function init() {      
+    valgtRegistrering = document.querySelector("#valgtRegistrering");
+    valgtArkiv = document.querySelector("#valgtArkiv");
+    valgtKommentar = document.querySelector("#valgtKommentar");
+  
+    
+    //form.reset(); det er ved piltast tilbake id
+    // init geolocation
+    //google.maps.event.addDomListener(window, 'load', initialize);    
+  }       
+ 
+  function setOptionText(ExSelect, theArray) {
+    for (loop = 0; loop < theArray.length  ; loop++) {       	 
+      ExSelect.options[loop].text = theArray[loop];
+    }
+  }                             
+    
+  function swapOpts(regId,ArrayName) {
+    var ExSelect = document.theForm.status;
+    var theArray = eval(ArrayName);
+    setOptionText(ExSelect, theArray);      
+    document.querySelector('#xx').innerHTML = '<input type=hidden name=\"psiNy\" value='+regId+'>';
+    id_ind = regId;
+  }
+ 
+  function showMe(valgt) {   
+    valgtFlystriper.className   = "hidden";
+    valgtGeocode.className     = "hidden";
+    valgtKommentar.className   = "hidden";           
+          	
+    switch (valgt) {
+      case 'flystriper' :
+        valgtFlystriper.className = "visible";
+        setRequired("valgtFlystriper");
+      break;            
+      case 'geocode' :
+        valgtFlystriper.className = "visible";
+        setRequired("valgtFlystriper");
+        valgtGecode.className   = "visible";
+        setRequired("valgtGeocode");
+      break;
+      case 'kommentar' :	
+        valgtKommentar.className = "visible";
+        setRequired("valgtKommentar");
+      break;        
+      default : alert('error in showMe' + valgt);  
+      break;  
+    }           
+    valg = valgt;
+  }
+   
+  function setRequired(denne) {    	
+    var pone,pone2,pone3;
+                                                                         
+    switch (denne) {
+      case 'valgtRegistrert' : 
+        pone = document.querySelector('#regDate'); 
+        pone.required = false;
+      break;
+      case 'valgtArkiv'  : 
+        pone = document.querySelector('#changeDate'); 
+        pone.required = false;
+        pone3.required = false;
+      break;      
+      default :            
+        var p1 = document.querySelectorAll( '#' + denne+ ' textarea ,#' + denne + ' input[type=date]' +',#' + denne + ' input[type=number]');      
+        var p2 = document.querySelectorAll('textarea ,input' );                     
+        for ( var i = 0; i < p2.length; i++ ) {
+          //p2[i].style.backgroundColor = "blue";
+          p2[i].required = false;
+        }       
+        var ss = '#' + denne+ ' textarea ,#' + denne + ' input' ; 
+        //alert(ss);
+        var p1 = document.querySelectorAll( '#' + denne+ ' textarea ,#' + denne + ' input[type=date]' +',#' + denne + ' input[type=number]');              
+        for ( var i = 0; i < p1.length; i++ ) {                 
+          if ((p1[i].id=='notes') == false) {
+            p1[i].required = true;     
+            //p1[i].style.backgroundColor = "red";                   
+          }
+        }
+      }
+    }
+    // filer
+      function setSelectedFile() {
+        var selectedFile = document.getElementById('pictures').files;
+        
+        for (i=0; i<selectedFile.length; i++) {
+         //console.log('name='+selectedFile[i].name+' size='+ selectedFile[i].size +' type='+selectedFile[i].type);
+         //console.log('antall='+selectedFile.length);
+         //console.log('<input type=hidden name=\"name\" value=\"'+selectedFile[i].name+'\">');
+         document.querySelector('#bilder').innerHTML = '<input type=hidden name=\"bimgTotal\" value='+selectedFile.length+'>';
+          document.querySelector('#bilder').innerHTML ='<input  name=\"bname\" value=\"'+selectedFile[i].name+'\">';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bsize\" value='+selectedFile[i].size+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"btype\" value='+selectedFile[i].type+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"blng\" value='+selectedFile[i].lng+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"blat\" value='+selectedFile[i].lat+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bpostal_code\" value='+selectedFile[i].postalcode+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bzip\" value='+selectedFile[i].zip+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"baddress\" value='+selectedFile[i].address+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bstreet_number\" value='+selectedFile[i].street_number+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bstate\" value='+selectedFile[i].state+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bregion\" value='+selectedFile[i].region+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bcity\" value='+selectedFile[i].city+'>';
+          document.querySelector('#bilder').innerHTML ='<input type=hidden name=\"bcountry\" value='+selectedFile[i].country+'>';
+        }
+      }        
+      //document.querySelector("#singleName").innerHTML = selectedFile.name;
+      //document.querySelector("#singleSize").innerHTML = selectedFile.size + "  bytes";
+      //document.querySelector("#singleType").innerHTML = selectedFile.type;
+      //  <ul><li>name: <span id="singleName"></span></li><li>size: <span id="singleSize"></span></li><li>type: <span id="singleType"></span></li></ul>
+    
+</script>
+ 
+</head>
+ 	
+<body onload="initMap()"> 
+
+  {% if {{crm.username}} %}
+    
+  <div>
+  <header>
+  <nav>
+         {% else %}
+        {{crmC.notlogged_in}}      <a href="/login">{{crmC.login}}</a> 
+        {% endif %}
+        {% if {{crm.username}} == "solveig" %}	
+          <ul>                                                                                                                                                                                        
+            <li class="button"><a href="/signup">{{crmC.signup}}</a></li>
+            <li  class="button"><a href="/overview">{{crmC.overview}}</a></li>
+          </ul>   
+        {% endif %}
+      
+        <div class= "blokk1">
+ 	        <p><img  class="logoNBH"  src="img/nbhLogoTextRight.svg" alt="logo til Ny blå himmel" /></p>    
+          {% set crm.status = 'Flystriper' %}
+          <ul>     
+        	{% if crm.status != 'Flystriper' %}
+            <li   class="button"><a  href="/airstrip" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+          {% if crm.status != 'Kjemikaler' %}
+            <li   class="button"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+         	{% if crm.status != 'PH' %}
+            <li   class="button"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+          <li   class="sun"><a  href=""  ></a></li>
+          {% if crm.status != 'Kommentar' %}
+            <li   class="button"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+            <li   class="button"><a  href="/logout">{{crmC.logout}} </a></li>
+         </ul>
+         <ul class="toleft">
+ 	        <li class="flag"> 
+ 	          <a class="toleft1" href="/airstrip" >
+ 	            <img src="img/FlagEng.svg"    alt="Norske flagg" />        
+            </a>
+          </li>
+          <li class="flag">
+            <a class="toleft1" href="/airstrip" >
+ 	            <img src="img/FlagNor.svg"    alt="Norske flagg" />       
+            </a>
+          </li>  
+          <li onmouseout="document.getElementById('description').style.display='none';" onmouseover="document.getElementById('description').style.display='block';" >
+            <p class="question">?</p>    
+            <p id="description"> Kommer en beskrivelse etterhvert... trenger forslag ...</p>         
+          </li>
+       </ul>
+      </div>
+       
+        <ul>     
+          {% if crm.status == 'Flystriper' %}
+            <li   class="buttonb"><a  href="/airstrp" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+       	  {% if crm.status == 'Kjemikaler' %}
+            <li   class="buttonb"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == 'PH' %}
+            <li   class="buttonb"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == 'Kommentar' %}
+            <li   class="buttonb"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+        </ul>
+        <select class="bottons"  name="psi_id"  autofocus required onchange="swapOpts(this.options[selectedIndex].text,this.options[selectedIndex].value);">
+    		      <option>{{crmC.new_txt}}</option>
+              {% for cli in crm.client %}
+                 {% if {{crm.username}} == {{cli.contact}} and {{cli.status}} in {{crm.showUp}}%}    
+                        <option id ="pid" value="{{cli.status}}">{{cli.psi_id}} </option>                     
+                  {% endif %}
+              {% endfor %}
+           </select> 
+    
+  </nav>
+  </header>   
+  <section>
+     <form name="theForm "  action="/newCrmClient" method="POST">    
+       <fieldset>
+            <div id= bilder></div>
+            <div id="valgtFlystriper" class="visible">
+               <div class= "blokk2">
+               	  <h2 > {{crmC.registration_txt}} </h2>  
+                  <label for="studyDate">
+                	  <input type="date" id="studyDate" name="studyDate"    >{{crmC.date_txt}}</label> 
+              	  <label for="studyTime"> 
+              	  <input type="time" id="studyTime" name="studyTime"    >{{crmC.clock_txt}}</label>            
+               </div>     
+               <div class= "blokk2">
+                  <h2> {{crmC.duration_txt}} </h2>  
+                  <label for = "studyHours"> 
+                  <input type="number" id="studyHours" name="studyHours" min=0 max=1000 >  {{crmC.studyHours_txt}} </label>     
+                  <label for = "studyMin"> 
+                  <input type="number" id="studyMin" name="studyMin" min=0 max=60 >{{crmC.studyMin_txt}} </label>       
+               </div>     
+              <div class= "blokk">
+                <h2>{{crmC.airstrips_txt}}</h2>
+                <ul>
+                  <li><label  class="velg" for  = "airstrips"> <input type="checkbox" id="airstrips"  name ="airA"  value="X">  
+                  {{crmC.air_a}}</label> </li>                
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airB"  value="X">   
+                  {{crmC.air_b}}</label></li>
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airC"  value="X">   
+                  {{crmC.air_c}}</label></li>
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airD"  value="X">   
+                  {{crmC.air_d}}</label></li>
+                  <li><label class="velg" for  = "airstrips"><input type="checkbox" id="airstrips"  name ="airE"  value="X">                 	
+                  {{crmC.air_e}}</label></li>
+                  <li><label class="velg" for  = "airstrips"> <input type="checkbox" id="airstrips"  name ="airF"  value="X">   
+                  {{crmC.air_f}}</label></li>
+                  <li><label class="velg" for = "cloud"><input type="checkbox" id="cloud"  name ="cloA"  value="X"> 
+                  {{crmC.cloud_txt}}</label></li>
+                </ul>  
+              </div>  
+              <div class= "blokk">
+                <label for = "moreAirNr">   
+                <input type="number" id="moreAirNr" name="moreAirNr" min=0 max=100 > {{crmC.sim_a}} </label>    
+                <label for = "noStripeNr">  
+                <input type="number" id="noStripeNr" name="noStripeNr" min=0 max=100 > {{crmC.sim_b}} </label>     
+              </div>  
+              <div class= "blokk">
+               <h2>{{crmC.forcast_txt}} </h2>  
+               <label for  = "forcastYes">
+               <input type = "radio" name = "forcast" id = "forcastYes" value = "YES" />{{crmC.yes_txt}}</label>
+               <label for = "forcastNo">
+               <input type = "radio" name = "forcast" id = "forcatNo" value = "NO"/>{{crmC.no_txt}}</label>
+               <label for = "forcastdoNotKnow">
+               <input type = "radio" name = "forcast" id = "forcatDoNotKnow" value = "doNotKnow"/>{{crmC.doNotKnow_txt}}</label>
+              </div>     
+              <div class= "blokk">
+              	<h2>{{crmC.airtrafic_txt}}</h2>
+                <label for  = "airtraficYes">
+                <input type = "radio" name = "airtrafic" id = "airraficYes" value = "YES" />{{crmC.yes_txt}}</label>
+                <label for = "airtraficNo">
+                <input type = "radio" name = "airtrafic" id = "airtraficNo" value = "NO"/>{{crmC.no_txt}}</label>
+               </div>               
+              <div class= "blokk"">
+               <h2>{{crmC.localization_txt}}</h2>
+                <label for  = "address">
+                <input type="text" id="address"  name ="address" value={{crm.address}}>{{crmC.address_txt}}</label>  
+                <input class="bigButton" id="submitAdr" type="button" value={{crmC.useAddress_txt}}>
+                <input class="bigButton" id="submitGps" type="button" value={{crmC.useGPS_txt}}> 
+               <p>{{crmC.posInfo_txt}}</p>
+              </div>
+                      
+              <div class= "blokk">
+                 <label for = "pictures"> {{crmC.pictures_txt}}
+                   <input type="file" id="pictures" multiple value="gg"/>
+                 </label>  
+                 <input class="bigButton" id="submitFiles" type="button" value="testing:" >             
+              </div>               
+         <canvas id="myCanvas" width="512" height="5"></canvas>      
+             <div class= "blokk">
+                  <label for = "videos">{{crmC.videos_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "speed">{{crmC.speed_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "height">{{crmC.height_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "direction">{{crmC.direction_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "aircraft">{{crmC.aircraft_txt}}</label>
+              </div>               
+             <div class= "blokk">
+                  <label for = "airline">{{crmC.airline_txt}}</label>
+              </div>               
+                                          
+           </div>  
+ 
+           <div class= "blokk">  
+              <div id="valgtKommentar" class="hidden">       
+                   <label for = "notes">{{crmC.notes_txt}}</label>
+                   <textarea class="minst" id="notes"  name ="notes" ></textarea>             
+                   <label for="notesDate">{{crmC.notesDate_txt}}</label>   
+                   <input type="date" id="notesDate" name="notesDate"   value={{notesDate}}>
+             </div>
+          </div>               
+       <input type=hidden name=psiNy value=1>
+        <input type=hidden name=status value="iRegistrering">
+        <input type=hidden name=statusNew value="iRegistrering">
+                   
+           <input type="hidden" name="signature" value="{{crm.signature}}">
+           <div class= "blokk">                                     
+           <input class="button3" type="submit" name = "submit1" value="Lagre"  /> 
+           <div onmouseout="document.getElementById('hint').style.display='none';" onmouseover="document.getElementById('hint').style.display='block';" >
+             <p class="what">?</p>    
+             <p id="hint">{{crmC.save_txt}} </p>  
+           </div>
+           </div>               
+      </fieldset>  
+     </form>       
+   <button onclick="myFunction()">Try it</button>
+
+
+    
+  </section>  
+  </div>                                                          
+  <footer>
+    <p>Copyright &copy; 2015 BedreData</p>
+    <p class="isCenter">{{crmC.title_txt}}{{crmC.user_more_txt}} {{crm.username}}</p>       
+  </footer>
+</body>
+</html>
+   

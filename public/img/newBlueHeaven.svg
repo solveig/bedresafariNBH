@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="no"?>
+<!--Created with Sketsa SVG Editor (http://www.kiyut.com)-->
+<svg contentScriptType="text/ecmascript" width="344.0px" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full"
+    zoomAndPan="magnify" contentStyleType="text/css" height="55.0px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+    version="1.0">
+    <defs>
+        <linearGradient id="blackGradient">
+            <stop style="stop-color:black" offset="0%"/>
+            <stop style="stop-color:silver" offset="30%"/>
+            <stop style="stop-color:black" offset="32%"/>
+            <stop style="stop-color:silver" offset="60%"/>
+            <stop style="stop-color:black" offset="62%"/>
+            <stop style="stop-color:silver" offset="80%"/>
+            <stop style="stop-color:black" offset="82%"/>
+            <stop style="stop-color:black" offset="100%"/>
+        </linearGradient>
+        <linearGradient id="nbhGradient">
+            <stop style="stop-color:lightBlue" offset="0%"/>
+            <stop style="stop-color:royalblue" offset="15%"/>
+            <stop style="stop-color:lightBlue" offset="30%"/>
+            <stop style="stop-color:royalblue" offset="45%"/>
+            <stop style="stop-color:lightBlue" offset="65%"/>
+            <stop style="stop-color:royalblue" offset="80%"/>
+            <stop style="stop-color:lightblue" offset="100%"/>
+        </linearGradient>
+        <filter id="skygger">
+            <feGaussianBlur stdDeviation="1.9" in="SourceAlpha"/>
+            <feOffset result="offsetBlur" dx="-5" dy="-4"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="sourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <rect x="0" width="344px" height="55px" id="logonavn" y="0" style="fill: royalblue; stroke: none;"/>
+    <g transform="scale(1)">
+        <text x="10" font-size="40px" y="40" fill="gray" style="font-family: Arial;" filter="url(#skygger)" font-weight="bold">New blue heaven</text>
+        <text fill="url(#nbhGradient)" x="10" y="40" font-size="40px" style="font-family: Arial;" font-weight="bold">New blue heaven</text>
+    </g>
+</svg>

@@ -1,0 +1,40 @@
+<?xml version="1.0" standalone="no"?>
+<!--Created with Sketsa SVG Editor (http://www.kiyut.com)-->
+<svg contentScriptType="text/ecmascript" width="104.0px" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full"
+    zoomAndPan="magnify" contentStyleType="text/css" height="55.0px" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg"
+    version="1.0">
+    <defs>
+        <linearGradient id="blackGradient">
+            <stop offset="0%" style="stop-color:black"/>
+            <stop offset="30%" style="stop-color:silver"/>
+            <stop offset="32%" style="stop-color:black"/>
+            <stop offset="60%" style="stop-color:silver"/>
+            <stop offset="62%" style="stop-color:black"/>
+            <stop offset="80%" style="stop-color:silver"/>
+            <stop offset="82%" style="stop-color:black"/>
+            <stop offset="100%" style="stop-color:black"/>
+        </linearGradient>
+        <linearGradient id="nbhGradient">
+            <stop offset="0%" style="stop-color:lightBlue"/>
+            <stop offset="15%" style="stop-color:royalblue"/>
+            <stop offset="30%" style="stop-color:lightBlue"/>
+            <stop offset="45%" style="stop-color:royalblue"/>
+            <stop offset="65%" style="stop-color:lightBlue"/>
+            <stop offset="80%" style="stop-color:royalblue"/>
+            <stop offset="100%" style="stop-color:lightblue"/>
+        </linearGradient>
+        <filter id="skygger">
+            <feGaussianBlur stdDeviation="1.9" in="SourceAlpha"/>
+            <feOffset result="offsetBlur" dx="-5" dy="-4"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="sourceGraphic"/>
+            </feMerge>
+        </filter>
+    </defs>
+    <rect x="0" width="104px" y="0" id="logonavn" height="55px" style="fill: royalblue; stroke: none;"/>
+    <g transform="scale(1)">
+        <text x="10" font-size="40px" y="40" fill="gray" style="font-family: Arial;" filter="url(#skygger)" font-weight="bold">NBH</text>
+        <text fill="url(#nbhGradient)" x="10" font-size="40px" y="40" style="font-family: Arial;" font-weight="bold">NBH</text>
+    </g>
+</svg>

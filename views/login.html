@@ -1,0 +1,23 @@
+{% extends '..\views\bedre.html' %}
+
+{% block content %}
+   <section>
+    <header>
+      <nav>      	 
+      	<h1>{{crmC.login_txt}}</h1>
+      </nav>
+    </header>	
+       <form  method="post">
+         <div class= "blokk2">
+              <label for="contact">
+              <input type="text" id="username" name="username"  autofocus  >{{crmC.user_txt}}</label> 
+           	  <label for="password"> 
+           	  <input type="password" id="password" name="password"    >{{crmC.password_txt}}</label>            
+         </div>                
+     	                
+         <input  class="button3" type="submit">
+       </form>
+ 
+   </section>  
+
+{% endblock %}

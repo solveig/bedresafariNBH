@@ -1,0 +1,199 @@
+{% extends '..\views\bedre.html' %}
+{% block content %}
+  <section> 
+  	{% autoescape true %}
+    <header>
+    <nav>   
+       <ul>     
+          {% if crm.status == crmC.airstrip_txt%}
+            <li   class="buttonb"><a  href="/airstrp" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+       	  {% if crm.status == crmC.chemicals_txt %}
+            <li   class="buttonb"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == crmC.ph_txt %}
+            <li   class="buttonb"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == crmC.notes_txt %}
+            <li   class="buttonb"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+       </ul>   
+       <select class="buttons"  name="id"  autofocus required onchange="swapOpts(selectedIndex,this.options[selectedIndex].value);">
+    	   <option selected disabled>Choose one</option>
+         <option value=-1 >{{crmC.new_txt}}</option>
+         {% for cli in crmC.choose %}
+            <option id ="pid" value="{{cli.airstrip.regDate}}{{cli.airstrip.regTime}}">{{cli.airstrip.regDate}} - {{cli.airstrip.regTime}} </option>                     
+         {% endfor %}
+       </select>     
+    </nav>
+    </header>	
+    <div class="blokk">  
+      <div id="valgtStatus" class="visible">       
+        <form id= "airstrip"  action="/airstrip" method="POST">    
+          <fieldset>
+            <div id="valgtFlystriper" class="visible">
+              <div class= "blokk2"> 
+              	 <h2 > {{crmC.registered_txt}} </h2>   
+                <label for="regDate">
+             	    <input type="date"  id="regDate" name="regDate" value={{crm.airstrip.regDate}}>{{crmC.date_txt}}
+             	  </label> 
+          	    <label for="regTime"> 
+           	      <input type="time" id="regTime" name="regTime" value={{crm.airstrip.regTime}}>{{crmC.clock_txt}}
+           	    </label>            
+              </div>     
+                <div class= "blokk2">
+                <h2 > {{crmC.duration_txt}} </h2>  
+                <label for=""durHours"">
+             	    <input type="number" id="durHours" name="durHours" value={{crm.airstrip.durHours}}>{{crmC.durHours_txt}}
+             	  </label> 
+          	    <label for="durTime"> 
+           	      <input type="number" id="durMin" name="durMin" value={{crm.airstrip.durMin}}>{{crmC.durMin_txt}}
+           	    </label>            
+              </div>                         
+              <div class="blokk">
+                <h2>{{crmC.airstrips_txt}}</h2> 
+                <ul>
+                  <li>
+                  	<label class="velg" for="airstrips"> 
+                      <input type="checkbox" id="normalA" name="normalA"   {% if crm.airstrip.normalA == "on" %}checked ="on" {% endif %}>{{crmC.normal_txt}}
+                    </label> 
+                  </li>   
+                  <li>
+                 	  <label class="velg" for="airstrips">
+                 	 	  <input type="checkbox" id="shortA"  name="shortA" {% if crm.airstrip.shortA == "on" %}checked {% endif %}>{{crmC.short_txt}}
+                 	  </label>
+                  </li>
+                  <li>
+                 	  <label class="velg"for="airstrips">
+                 	    <input type="checkbox" id="longA"  name="longA" {% if crm.airstrip.longA == "on" %}checked {% endif %}>{{crmC.long_txt}}
+                 	  </label>
+                 	</li>
+                  <li>
+                  	<label class="velg" for="airstrips">
+                  		<input type="checkbox" id="wideA" name="wideA" {% if crm.airstrip.wideA == "on" %}checked {% endif %}>{{crmC.wide_txt}}
+                  	</label>
+                  </li>
+                  <li>
+                  	<label class="velg" for="airstrips">
+                  		<input type="checkbox" id="dissipativeA" name="dissipativeA" {% if crm.airstrip.dissipativeA == "on" %}checked {% endif %}>{{crmC.dissipative_txt}}
+                  	</label>
+                  </li>
+                  <li>
+                  	<label class="velg" for="airstrips">
+                  		<input type="checkbox" id="lastingA" name="lastingA" {% if crm.airstrip.lastingA == "on" %}checked {% endif %}>{{crmC.lasting_txt}}
+                  	</label>
+                  </li>
+                  <li>
+                  	<label class="velg" for = "cloud">
+                  		<input type="checkbox" id="cloud"  name ="cloud"  {% if crm.airstrip.cloud == "on" %}checked {% endif %}>{{crmC.cloud_txt}}
+                    </label>
+                  </li>
+                </ul>  
+              </div>  
+              <div class="blokk">
+                <label for="moreAirNr">   
+                <input type="number" id="moreAirNr" name="moreAirNr" min=0 max=100 value={{crm.airstrip.moreAirNr}}> {{crmC.sim_a}} </label>    
+                <label for="noStripeNr">  
+                  <input type="number" id="noStripeNr" name="noStripeNr" min=0 max=100 value={{crm.airstrip.noStripeNr}}>{{crmC.sim_b}}
+                </label>     
+              </div>  
+              <div class="blokk">
+                <h2>{{crmC.forcast_txt}}</h2>  
+                <label for="forcastYes">
+                  <input type="radio" name="forcast" id="forcastYes" value= "yes" {% if crm.airstrip.forcast == "yes"%}checked {% endif %} />{{crmC.yes_txt}}
+                </label>
+                <label for="forcastNo">
+                 <input type="radio" name="forcast" id="forcatNo" value= "no" {% if crm.airstrip.forcast == "no" %}checked {% endif %}/>{{crmC.no_txt}}
+                </label>
+                <label for="forcastdoNotKnow">
+                  <input type="radio" name="forcast" id="forcatDoNotKnow" value= "doNotKnow" {% if crm.airstrip.forcast == "doNotKnow" %}checked {% endif %}/>{{crmC.doNotKnow_txt}}
+                </label>
+              </div>     
+              <div class="blokk">
+              	<h2>{{crmC.airtrafic_txt}}</h2>
+                <label for="airtraficYes">
+                  <input type="radio" name="airtrafic" id="airrafic" value="on" {% if crm.airstrip.airtrafic == "on" %}checked {% endif %}/>{{crmC.yes_txt}}
+                </label>
+                <label for="airtraficNo">
+                  <input type="radio" name="airtrafic" id="airtrafic" value="off" {% if crm.airstrip.airtrafic == "off" %} checked {% endif %}>{{crmC.no_txt}}
+                </label>
+              </div>  
+<script>
+	//                <select class="location"  name="id"  autofocus required onchange="myFunction()">    		           
+	//geoOpts(this.options[selectedIndex].value,{{crm.airstrip.address}});</script>
+                 <div class="blokk""> 
+                 <h2>{{crmC.localization_txt}}</h2> 
+                  <select class="location"  name="id"  autofocus required onchange="geoOpts(this.options[selectedIndex].value, '{{adr}}' )">    		           
+                   <option id ="pid" value="useAddress"> {{crmC.useAddress_txt}} </option>                     
+                   <option id ="pid" value="useGps">{{crmC.useGPS_txt}}  </option>                     
+                 </select>    
+                 <label for = "address">
+                   <input type="text" id="address"  name ="address" value="{{crm.airstrip.address}}" required=true onchange="geoOpts('useAddress',this.value);">             
+                   {{crmC.address_txt}} 
+                 </label>   
+                 <input  id="blat"  name ="blat" value={{crm.airstrip.blat}}>
+                 <input   id="blng"  name ="blng" value={{crm.airstrip.blng}}>
+                 <input  id="bpostalcode"  name ="bpostalcode" value={{crm.airstrip.bpostalcode}}>
+                 <input   id="bzip"  name ="bzip" value={{crm.airstrip.bzip}}>
+                 <input  id="bstreet_number"  name ="bstreet_number" value={{crm.airstrip.bstreet_number}}>
+                 <input   id="bstate"  name ="bstate" value={{crm.airstrip.bstate}}>
+                 <input   id="bregion"  name ="bregion" value={{crm.airstrip.bregion}}>
+                 <input  id="bcity"  name ="bcity" value={{crm.airstrip.bcity}}>
+                 <input   id="bcountry"  name ="bcountry" value={{crm.airstrip.bcountry}}>                
+              </div>   
+                              
+              <div class="blokk">
+                 <label for="pictures">{{crmC.pictures_txt}}
+                 	    <input type="file" id="fileInput" multiple="multiple" onchange="GetFileInfo ()" />
+                 </label>  
+      <div id="info" style="margin-top:30px"></div>
+                
+                <input   id="imgTotal"  name ="imgTotal" value={{crm.airstrip.imgTotal}}>
+                <input   id="files"  name ="files" value={{crm.airstrip.files}}>
+                
+                <input   id="imgName"  name ="imgName" value={{crm.airstrip.imgName}}>
+                <input   id="imgSize"  name ="imgSize" value={{crm.airstrip.imgSize}}>
+                <input id="imgType"  name ="imgType" value={{crm.airstrip.Type}}>
+              
+             </div> 
+                   <canvas id="myCanvas" width="512" height="5"></canvas>      
+                 
+               <div class="blokk">
+                <label for="videos">{{crmC.videos_txt}}</label>
+              </div>               
+              <div class="blokk">
+                <label for="speed">{{crmC.speed_txt}}</label>
+              </div>               
+              <div class="blokk">
+                <label for="height">{{crmC.height_txt}}</label>
+              </div>               
+              <div class="blokk">
+                <label for="direction">{{crmC.direction_txt}}</label>
+              </div>               
+              <div class="blokk">
+                <label for="aircraft">{{crmC.aircraft_txt}}</label>
+              </div>               
+              <div class="blokk">
+                <label for="airline">{{crmC.airline_txt}}</label>
+              </div>                                                         
+            </div>  
+            <input type="text" name="enterNotSubmit" value="pgaProblem" class="hidden" />
+            <input type=hidden id="status" name="status" value={{crm.status}}>     
+            <input type=hidden id="reqLevel" name="reqLevel" value={{crm.level}}>     
+         <h1 id="vekk">vekk</h1>
+            <input type=hidden id="reqInd" name="reqInd" value=-1 >     
+              <div class= "blokk">                                     
+              <input class="button3" type="submit" name="subAirstrip" value= {{crmC.save_txt}}/> 
+              <div onmouseout="document.getElementById('hint').style.display='none';" onmouseover="document.getElementById('hint').style.display='block';" >
+                <p class="what">?</p>    
+                <p id="hint">{{crmC.saveDesc_txt}} </p>  
+              </div>
+            </div>               
+            </fieldset>  
+          </form>
+        </div>
+      </div>         
+     {% endautoescape %}
+   </section>  
+
+{% endblock %}

@@ -1,0 +1,44 @@
+navigator ,alert not defined når det ikke blir brukt i window
+
+c:\bedre>npm outdated
+Package             Current  Wanted  Latest  Location
+express               3.3.8  3.21.2  4.13.3  express
+npm                  2.11.1  2.14.9  3.3.10  npm
+imagemagick-stream    2.0.0   2.0.0   3.0.0  imagemagick-stream
+body-parser          1.13.3  1.14.1  1.14.1  body-parser
+consolidate           0.9.1   0.9.1  0.13.1  consolidate
+validator             1.1.3   1.5.1   4.2.1  validator
+mongodb              2.0.39  2.0.47  2.0.47  mongodb
+mongoose              4.1.6   4.2.4   4.2.4  mongoose
+swig                 0.14.0  0.14.0   1.4.2  swig
+
+c:\bedre>
+npm init
+får feilmeldinger når kjøreer node app.js
+npm install express 
+npm install consolidate
+npm install mongodb
+npm install bcrypt-nodejs
+npm install date-and-time
+npm install vlidator
+npm install geolocation
+npm install node-geocoder  https://www.omniref.com/js/npm/node-geocoder/2.3.0  trenger nok ikke
+
+
+
+
+Data inn i databasen
+mongoimort --db minDB --colection people --jsonarray data.jsonarray
+data.js er {"firstname":"kari",,,,,}
+
+Fra https://www.mongodb.com/blog/post/introducing-nodejs-mongodb-20-driver
+ Node.js MongoDB 2.0 Driver
+2015 18. nov
+mkdir myprojects
+cd myprojects
+npm init
+npm install mongodb --save
+81090516124 81090516124
+
+//http://mongodb.github.io/node-mongodb-native/2.0/reference/crud/
+

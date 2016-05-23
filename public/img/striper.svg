@@ -1,0 +1,33 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+    "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg contentScriptType="text/ecmascript" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="full" zoomAndPan="magnify"
+    contentStyleType="text/css" preserveAspectRatio="xMidYMid meet" xmlns="http://www.w3.org/2000/svg" version="1.0">
+    <metadata>Created by potrace 1.12, written by Peter Selinger 2001-2015</metadata>
+    <defs>
+        <path id="striper" d="M80 11 c0 -2 7 -16 15 -32 8 -16 11 -32 6 -37 -14 -14 5 -88 29 -111 13 -11 20 -16 16 -9 -5 
+            8 8 11 45 9 52 -3 52 -3 29 14 -13 10 -31 16 -39 13 -14 -4 -14 -4 -1 6 10 7 11 11 3 11 -7 0 -13 5 -13 10 0 6 
+            18 -4 40 -21 23 -19 38 -39 35 -46 -3 -7 -8 -20 -11 -28 -3 -8 -1 -15 5 -15 6 0 10 5 8 11 -2 13 31 21 38 9 3 
+            -5 6 -20 7 -34 1 -15 9 -26 17 -26 7 0 20 -8 27 -17 12 -15 13 -16 8 -2 -7 21 32 50 54 42 11 -5 14 -2 9 10 -4 
+            11 -1 17 8 17 12 0 12 -5 4 -24 -8 -16 -8 -30 -1 -42 11 -20 56 -28 48 -8 -3 8 0 11 8 8 8 -3 16 5 20 20 3 14 
+            11 26 16 26 10 0 27 -56 22 -72 -1 -5 2 -8 8 -8 5 0 10 -9 10 -21 0 -12 4 -17 11 -14 6 4 8 13 5 21 -3 8 0 13 6 
+            11 7 -1 13 5 14 13 3 36 5 40 14 40 5 0 12 -11 16 -25 6 -26 18 -32 29 -16 3 5 1 12 -5 16 -5 3 -10 11 -10 16 0 
+            6 7 3 16 -5 8 -9 24 -21 35 -27 11 -6 17 -15 12 -22 -4 -8 -1 -7 10 1 9 8 21 11 26 7 7 -3 8 0 5 9 -3 9 -9 15 
+            -12 14 -21 -2 -32 4 -32 17 0 9 -6 12 -17 8 -10 -3 -15 -3 -11 1 4 4 20 9 37 10 26 2 29 0 18 -13 -7 -10 -3 -9 
+            10 2 22 19 49 15 37 -5 -4 -6 1 -6 14 1 17 9 23 8 31 -6 6 -10 11 -13 11 -8 0 15 50 17 50 2 0 -6 5 -4 11 6 8 
+            14 14 16 25 6 11 -9 14 -7 15 12 1 13 1 27 0 32 -2 13 26 7 39 -8 18 -22 29 -19 36 10 8 30 30 33 37 4 3 -12 10 
+            -18 16 -14 6 3 11 2 11 -3 0 -13 38 -23 45 -12 3 5 -1 15 -10 23 -12 12 -12 17 -1 26 7 6 16 8 19 4 4 -3 9 2 13 
+            11 3 9 10 13 15 10 5 -3 25 3 45 12 19 9 49 17 65 18"/>
+    </defs>
+    <g transform="translate(0.000000,.000000) scale(.23,.23)">
+        <rect x="0" width="340px" height="150px" id="skyLiten" y="0" style="fill: royalblue; stroke: none;"/>
+        <g fill="white" id="striper" transform="translate(0.000000,2.000000) scale(0.27,-0.3)" stroke="none">
+            <use x="0" y="50" xlink:href="#striper"
+               />
+        </g>
+        <g fill="royalblue" id="striper" transform="translate(0.000000,2.000000) scale(0.27,-0.29)" stroke="none">
+            <use x="0" y="90" xlink:href="#striper"
+               />
+        </g>
+    </g>
+</svg>

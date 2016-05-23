@@ -1,0 +1,61 @@
+{% extends '\bedre\views\bedre.html' %}
+{% block content %}
+   
+   <section> 
+    <header>
+    <nav>    	
+      <ul>     
+          {% if crm.status == {{crmC.airstrip_txt}}%}
+            <li   class="buttonb"><a  href="/airstrp" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+       	  {% if crm.status == {{crmC.chemicals_txt}} %}
+            <li   class="buttonb"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == {{crmC.ph_txt}} %}
+            <li   class="buttonb"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+        	{% if crm.status == {{crmC.notes_txt}} %}
+            <li   class="buttonb"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+      </ul>
+      <select class="bottons"  name="psi_id"  autofocus required onchange="swapOpts(selectedIndex,this.options[selectedIndex].value);">
+    		      <option>{{crmC.new_txt}}</option>
+              {% for cli in crm.client %}
+                 {% if {{crm.username}} == {{cli.contact}} and {{cli.fillIn}} in {{crm.showUp}}%}    
+                        <option id ="pid" value="{{cli.psi_id}}">{{cli.psi_id}} </option>                     
+                  {% endif %}
+              {% endfor %}
+      </select>     
+    </nav>
+    </header>	
+      <div class="blokk">  
+        <div id="valgtKommentar" class="hidden">       
+          <form id= "airstrip" name="airstrip"  action="/airstrip" method="POST">    
+            <fieldset>
+                
+                <label for="notes">{{crmC.notes_txt}}</label>
+                <textarea class="minst" id="notes"  name ="notes" ></textarea>             
+                <label for="notesDate">{{crmC.notesDate_txt}}</label>   
+                <input type="date" id="notesDate" name="notesDate"   value={{notesDate}}>
+             <input id="psiNy" type=hidden name=psiNy value=1>
+            <input type=hidden name=status value="iRegistrering">
+            <input type=hidden name=statusNew value="iRegistrering">
+                   
+            <input  type="hidden" name="signature" value="{{crm.signature}}">
+            <div class= "blokk">                                     
+              <input class="button3" type="submit" name="subAirstrip" value="Lagre" /> 
+              <div onmouseout="document.getElementById('hint').style.display='none';" onmouseover="document.getElementById('hint').style.display='block';" >
+                <p class="what">?</p>    
+                <p id="hint">{{crmC.save_txt}} </p>  
+              </div>
+            </div>               
+   
+            </fieldset>  
+          </form>
+
+              </div>
+            </div>               
+
+   </section>  
+
+{% endblock %}

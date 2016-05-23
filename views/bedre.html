@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">    
+<meta charset="UTF-8">    
+<title>{{crm.status}}</title>
+<link rel='stylesheet' href='href/reset.css'>
+                                                                      
+<script>
+	function initMap( ) {
+ 
+  }		
+
+function initGeoLocation() {
+  // Try HTML5 geolocation
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(function(position) {
+    var pos = new google.maps.LatLng(position.coords.latitude,position.coords.longitude);
+     var latlng = {'lat': position.coords.latitude, 'lng' :+position.coords.longitude}; 
+      console.log('initLocation lat='+position.coords.latitude);
+      var doing = {'location': latlng};
+      doGeocode(doing);
+    }, function() {
+      handleNoGeolocation(true);
+    });
+  } else {
+    //'Browser does not support Geolocation');
+    handleNoGeolocation(false);
+  }
+}
+      
+ 
+  
+	function swapOpts( thisId,thisDateTime) {
+ 		   var hDate = null;
+ 		   var hTime = null;
+ 		   var hLevel = null;
+ 		   if (thisId == 1) {
+ 		     hLevel = 'fillIn';
+ 		   } else {
+ 		   	 hLevel = 'update'; 	     
+ 		     hDate = thisDateTime.substr(0,10);
+ 		     hTime=thisDateTime.substr(10,5);
+ 		   }
+ 		   //Alert('id='+thisId+' level='+hLevel);
+ 		   //alert('='+thisDateTime+' date='+hDate+' time='+hTime);
+  	   console.log('='+thisDateTime+' date='+hDate+' time='+hTime);
+        document.querySelector('#vekk').innerHTML = '<h1 id="vekk" name="vekk">!!!!'+hLevel+'</h1>';       
+      document.querySelector('#reqLevel').innerHTML = '<input type=hidden id=\"reqLevel\" name=\"reqLevel\" value=\"'+hLevel+'\">';       
+       document.querySelector('#regDate').innerHTML = '<input  id=\"regDate\"  name=\"regDate\" value=\"'+hDate+'\">';       
+       document.querySelector('#regTime').innerHTML = '<input  id=\"regTime\"  name=\"regTime\" value=\"'+hTime+'\">';       
+        document.getElementById('airstrip').action = '/display';
+       document.getElementById('airstrip').submit();
+     }
+      
+     
+  function geoOpts( thisChoise, thisAddress) {
+  	var doing = {'address': thisAddress};
+    var resGeo;  
+    console.log('geoOps '+thisChoise+' aadr='+thisAddress);
+   	if (thisChoise==="useAddress"){
+      document.getElementById("address").required =true;  
+      //doGeocode(function(doing,addr){
+      var geocoder = new google.maps.Geocoder(); 
+      geocoder.geocode(doing, function(results, status) {
+        if (status === google.maps.GeocoderStatus.OK) {
+          if (results[0]) {
+            var comp = results[0].address_components;
+            lat =results[0].geometry.location.lat();
+            lng=results[0].geometry.location.lng();
+            console.log('lat='+lat);
+            document.querySelector('#blat').innerHTML = '<input type=hidden id=\"blat\" name =\"blat\" value='+results[0].geometry.location.lat()+'>';
+            document.querySelector('#blng').innerHTML = '<input type=hidden id=\"blng\"  name =\"blng\" value='+results[0].geometry.location.lng()+'>';
+ 
+
+            for (var i=0; i<comp.length; i++){
+       	      //alert('alle '+comp[i].types[0]+"="+comp[i].long_name);
+              switch(comp[i].types[0]){
+                case "postal_code":
+                  document.querySelector('#bpostalcode').innerHTML = '<input type=hidden id=\"bpostalcode\"  name =\"bpostalcode\" value='+comp[i].long_name+'>';
+                  break;
+                case "route":
+                  //address = comp[i].long_name;                    
+                  //alert("address input("+doing.address+") og result :"+address);                     
+                  break;
+                case "street_number":
+                  document.querySelector('#bstreet_number').innerHTML = '<input type=hidden id=\"bstreet_number\"  name =\"bstreet_number\" value='+comp[i].long_name+'>';                 
+                  break;
+                case "administrative_area_level_1":
+                  document.querySelector('#bstate').innerHTML = '<input type=hidden id=\"bstate\"  name =\"bstate\" value='+comp[i].long_name+'>';  
+                  break;
+                case "administrative_area_level_2":
+                  document.querySelector('#bregion').innerHTML = '<input type=hidden id=\"bregion\"  name =\"bregion\" value='+comp[i].long_name+'>';  
+                  break;
+                case "postal_town":
+                  document.querySelector('#bcity').innerHTML = '<input type=hidden id=\"bcity\"  name =\"bcity\" value='+comp[i].long_name+'>';  
+                  break;                  
+                case "country":
+                  document.querySelector('#bcountry').innerHTML = '<input type=hidden id=\"bcountry\"  name =\"bcountry\" value='+comp[i].long_name+'>';                  
+                  break;  
+                default : 
+                  alert('ukjent '+comp[i].types[0]+ 'b '+comp[i].long_name);  
+                    break;                                     
+              }
+            };          
+          } else {
+            alert("No results found");
+          }              
+        } else {
+          alert('Geocode was not successful for the following reason: ' + status);
+        }
+      });    
+    }            
+    else {
+      console.log('before');
+      document.getElementById("address").required = "";    
+      console.log('etter'); 
+    }
+  }
+   // filer
+  function GetFileInfo () {
+    var fileInput = document.getElementById ("fileInput");
+    document.querySelector('#imgTotal').innerHTML = '<input type=hidden name=\"imgTotal\" value='+fileInput.files.length+'>';
+    document.querySelector('#files').innerHTML ='<input  name=\"files\" value=\"'+fileInput.files+'\">';
+ 
+    for (var i = 0; i < fileInput.files.length; i++) {
+      document.querySelector('#imgName').innerHTML ='<input  name=\"imgName\" value=\"'+fileInput.files[i].name+'\">';
+      document.querySelector('#imgSize').innerHTML ='<input type=hidden name=\"imgSize\" value='+fileInput.files[i].size+'>';
+      document.querySelector('#imgType').innerHTML ='<input type=hidden name=\"imgType\" value='+fileInput.files[i].type+'>';
+    }
+  }       
+                                                                         
+</script>
+   
+</head>
+<body > 
+  <header>
+  <nav>
+  <div class= "blokk1">  
+  	  {% if crmC.speak == 'no' %}
+ 	       <p><img  class="logoNBH"  src="img/nbhLogoTextRight.svg" alt="logo til Ny blå himmel" /></p>    
+      {% else %}
+   	     <p><img  class="logoNBH"  src="img/nbhLogoTextEng.svg" alt="logo for New blue heaven" /></p>    
+      {% endif %} 
+      <ul>     
+     {% if crm.status != crmC.login_txt %}      
+          {% if crm.status != crmC.airstrip_txt %}
+          <li   class="button"><a  href="/airstrip" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+          {% if crm.status != crmC.chemicals_txt %}
+            <li   class="button"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+         	{% if crm.status != crmC.ph_txt %}
+            <li   class="button"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+          <li   class="sun"><a  href=""  ></a></li>
+          {% if crm.status != crmC.notes_txt %}
+            <li   class="button"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+            <li   class="button"><a  href="/logout">{{crmC.logout_txt}} </a></li>
+      {% else %}
+          <li   class="button"><a  href="/login" > {{crmC.login_txt}}</a></li>    
+      {% endif %} 
+      </ul>
+ 
+      <ul class="toleft">  
+        {% if crm.status != crmC.login_txt %}      
+  	        <li class="flag"> 
+ 	          <a class="toleft1" href="/newLang/en" > 	          	 
+ 	            <img src="img/FlagEng.svg"  alt="Engelsk flagg" />        
+            </a> 	          	        
+          </li>
+          <li class="flag">
+            <a class="toleft1" href="/newLang/no" >
+ 	            <img src="img/FlagNor.svg"    alt="Norske flagg" />       
+            </a>
+          </li>  
+       {% endif %}           
+          <li onmouseout="document.getElementById('descr').style.display='none';" onmouseover="document.getElementById('descr').style.display='block';" >
+            <p class="question">?</p>                  
+          </li>
+       </ul>
+       <aside id="descr" class="hidden">{{crm.description}}</aside>    
+ 
+  </div>
+       
+  </nav>
+  </header>   
+  {% block content %}
+  {% endblock %}   
+  <footer>
+    <p>Copyright &copy; 2015 BedreData</p>
+    {% if crm.status != crmC.login_txt %}      
+      <p class="isCenter">{{crmC.title_txt}}{{crmC.user_more_txt}} {{crm.username}}</p>       
+    {% endif %} 
+
+  </footer>
+   
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCANBkpQjnSjnhUdjPe9ud749qEm01r-P4&signed_in=true&callback=initMap" async defer>
+    </script>
+</body>
+</html>

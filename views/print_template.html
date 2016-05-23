@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta charset="UTF-8">    
+<title>aaaa{{title}}bbb</title>
+<link rel='stylesheet' href='../public/href/print.css'>
+<style media="print" >
+ 	#noprint {display:none} 
+	
+		
+ 	.icon img {
+    height: 30px;
+    width: 30px;
+    margin: 3px 0px 0px -6px;
+   	display: inline-block;	
+}
+ 
+}
+</style>
+
+
+</head>
+
+<body> 
+	<nav >
+<ul >
+    <li><a class="icon" href="#web"><img src= "../public/img/help.jpg" >Web</a></li>
+    <li><a class="icon" href="#articles"><img src= "../public/img/help.jpg" >Articles</a></li>
+    <li><a class="icon" href="#about"><img src= "../public/img/help.jpg" >About</a></li>
+    <li><a class="icon" href="#contact"><img src= "../public/img/help.jpg" >Contact</a></li>
+</ul>
+</nav>
+
+  <header>
+  	 <nav id="noprint" >
+       <ul>     
+        <li  class="button1"> <a id="noprint" href="#" onclick="javascript:history.go(-1);return false;" >Tilbake</a></li>
+        <li  class="button1"><a id="noprint" HREF="javascript:window.print()">Print til NAV/Fastlege </a></li>
+       </ul>   
+     </nav>       
+      <h1><img  src="img/psi.png" alt="logo til PSI-GRUPPEN" /></h1>  	
+  </header>   
+  <section >
+    <header>
+      <h1>{{crmC.logo_txt}}{{crmC.title_txt}}<br>
+    	{{crm.valgtTitle}}</h1>
+      	
+    	<table>
+        <tr>  		
+    	    <td><h2>Navn:</h2><h4> {{crm.username}} </h4> </td>
+    	    <td></td>
+    	  </tr>     
+          <tr>
+          <td><h2>Start observasjon:</h2><h4>{{crm.studyDate}}</h4></td>
+          <td><h2>Kommer mer ettethvert</h2><h4> </h4></td>                     
+        </tr>
+      </table> 
+         
+      </header>   
+      <div style="text-align: right"></div>  <h3>Merknader:</h3>
+       <h3>Merknader:</h3>
+      <p>{{crm.notes}}</p>  
+ 
+  </section>
+  <section> 
+  	  <h2>Dagens dato:</h2>
+      <h4>{{crm.toDay}}</h4>
+                                                                              
+ 	                              
+  <div id="kopi">
+     <h2>Innholdet blir lagret i NBH  sin database</h2>
+     <h4>Kontakt ved kommentarer rundt programmet</h4>
+     <h4>Solveig Løvhaug</h4>
+    </div>	
+  </section>        
+ 
+ 
+  <footer>
+  <div id="bunn">
+    <p>__________________________________________________________________________________________________________</p>
+    <p>Postadresse:Bøkleva 1766 Halden, Norge</p>
+    <p>Epost</p>
+    <p>solveig@bedredata.no</p>
+  </div> 	  
+  </footer>  
+</body>
+</html>
+ 

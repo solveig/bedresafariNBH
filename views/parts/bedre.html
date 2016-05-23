@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">    
+<meta charset="UTF-8">    
+<title>{{title}}</title>
+<title>{% block title %}My Site{% endblock %}</title>
+<link rel='stylesheet' href='reset.css'>
+<script src="bedre.js"></script>
+</head>
+ 	
+<body onload="initBedre()"> 
+
+  {% if {{crm.username}} %} 
+  <div id='bedreDebug'> 
+  <header>
+  <nav>
+  {% else %}
+    {{crmC.notlogged_in}} <a href="/login">{{crmC.login}}</a> 
+  {% endif %}     
+  <div class= "blokk1">
+ 	  <p><img  class="logoNBH"  src="img/nbhLogoTextRight.svg" alt="logo til Ny blå himmel" /></p>    
+    <ul>     
+          {% if crm.status != 'Flystriper' %}
+          <li   class="button"><a  href="/airstrip" > {{crmC.airstrip_txt}}</a></li>
+          {% endif %} 
+          {% if crm.status != 'Kjemikaler' %}
+            <li   class="button"><a  href="/chemicals"  >{{crmC.chemicals_txt}}</a></li>
+          {% endif %} 
+         	{% if crm.status != 'PH' %}
+            <li   class="button"><a  href="/ph" >{{crmC.ph_txt}}</a></li>
+          {% endif %} 
+          <li   class="sun"><a  href=""  ></a></li>
+          {% if crm.status != 'Kommentar' %}
+            <li   class="button"><a  href="/notes"  >{{crmC.notes_txt}}</a></li>
+          {% endif %} 
+            <li   class="button"><a  href="/logout">{{crmC.logout}} </a></li>
+    </ul>
+    <ul class="toleft">
+ 	        <li class="flag"> 
+ 	          <a class="toleft1" href="/airstrip" >
+ 	            <img src="img/FlagEng.svg"    alt="Norske flagg" />        
+            </a>
+          </li>
+          <li class="flag">
+            <a class="toleft1" href="/airstrip" >
+ 	            <img src="img/FlagNor.svg"    alt="Norske flagg" />       
+            </a>
+          </li>  
+          <li onmouseout="document.getElementById('description').style.display='none';" onmouseover="document.getElementById('description').style.display='block';" >
+            <p class="question">?</p>    
+            <p id="description"> Kommer en beskrivelse etterhvert... trenger forslag ...</p>         
+          </li>
+    </ul>
+  </div>
+       
+  </nav>
+  </header>   
+  {% block content %}
+  {% endblock %}   
+  </div>                                           
+  <footer>
+    <p>Copyright &copy; 2015 BedreData</p>
+    <p class="isCenter">{{crmC.title_txt}}{{crmC.user_more_txt}} {{crm.username}}</p>       
+  </footer>
+</body>
+</html>

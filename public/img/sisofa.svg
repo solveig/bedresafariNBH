@@ -1,0 +1,59 @@
+﻿****xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.0//EN" "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+
+<!--Created with Sketsa SVG Graphics Editor (http://www.kiyut.com)-->
+<svg contentScriptType="text/ecmascript" width="550.0px" xmlns:xlink="http://www.w3.org/1999/xlink"
+     zoomAndPan="magnify" contentStyleType="text/css" height="320.0px" preserveAspectRatio="xMidYMid meet"
+     xmlns="http://www.w3.org/2000/svg" version="1.0">
+    <defs>
+        <rect x="0" y="0" width="30" rx="10" id="del" ry="10" height="85"/>
+        <rect x="0" y="0" width="85" rx="10" id="deli" ry="10" height="30"/>
+        <linearGradient id="orangeGradient">
+            <stop offset="0%" style="stop-color:#FF8122"/>
+            <stop offset="30%" style="stop-color:#FF8122"/>
+            <stop offset="60%" style="stop-color:#FF8000"/>
+            <stop offset="100%" style="stop-color:#FF8000"/>
+        </linearGradient>
+        <filter x="-10%" y="-10%" width="120%" id="medGlow" height="120%">
+            <feGaussianBlur stdDeviation="6.5" in="SourceGraphic" result="glowSrc"/>
+            <feComponentTransfer result="glowingGraphic" in="glowSrc">
+                <feFuncA type="linear" slope="3"/>
+            </feComponentTransfer>
+        </filter>
+        <filter x="-5%" y="-5%" width="110%" id="emboss" height="110%">
+            <feGaussianBlur stdDeviation="3" in="SourceAlpha" result="blur"/>
+            <feSpecularLighting specularConstant="1" specularExponent="10" result="specOut" in="blur"
+                 style="lighting-color:grey" surfaceScale="7" lightColor="grey">
+                <fePointLight x="21000" y="24000" z="38000"/>
+            </feSpecularLighting>
+            <feComposite in2="SourceAlpha" operator="in" in="specOut" result="specOut"/>
+            <feComposite result="litPaint" in="SourceGraphic" k1="0" k2="1" k3="1" k4="0" in2="specOut"
+                 operator="arithmetic"/>
+        </filter>
+        <filter id="skygger">
+            <feGaussianBlur stdDeviation="3" in="SourceAlpha"/>
+            <feOffset dx="-5" dy="-4" result="offsetBlur"/>
+            <feMerge>
+                <feMergeNode in="offsetBlur"/>
+                <feMergeNode in="sourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="skygg">
+            <feGaussianBlur stdDeviation="4" in="SourceAlpha" result="blur"/>
+            <feOffset dx="-4" dy="-5" in="blur" result="offsetBlur"/>
+            <feSpecularLighting specularExponent="100" specularConstant="1.35" lighting-color="silver"
+                 in="offsetBlur" result="specOut">
+                <fePointLight x="21000" y="24000" z="38000"/>
+            </feSpecularLighting>
+            <feComposite in="specOut" k1="2.4" k2="1.1" k3="0.9" k4="0" in2="SourceGraphic"
+                 operator="arithmetic"/>
+        </filter>
+    </defs>
+    <image width="246" xlink:href="sisofaJenta.png" id="sisofaJenta" height="323"
+         preserveAspectRatio="none"/>
+    <g transform="scale(0.9)">
+        <text x="260" font-size="110" y="230" fill="silver" filter="url(#skygger)" font-weight="bold">SiSofa</text>
+        <text x="260" font-size="110" y="230" fill="url(#orangeGradient)" filter="url(#skygg)"
+             font-weight="bold">SiSofa</text>
+    </g>
+</svg>
