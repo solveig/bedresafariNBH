@@ -21,7 +21,7 @@
   "keywords": [
     "nbh"
   ],
-  "private": true,
+  "private": "true",
   "author": "Solveig løvhaug",
   "license": "ISC"
 }
