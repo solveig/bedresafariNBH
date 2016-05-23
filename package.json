@@ -1,7 +1,7 @@
 {
-  "name": "prod",
+  "name": "bedresafarii",
   "version": "1.0.0",
-  "description": "nbh",
+  "description": "bedresafari nbh",
   "main": "app.js",
   "dependencies": {
     "bedre": "^1.0.0",
@@ -13,6 +13,7 @@
     "mongodb": "^2.0.47",
     "validator": "^4.2.1"
   },
+   "repository": "https://github.com/",
   "devDependencies": {},
   "scripts": {
     "test": "node app.js"
@@ -20,6 +21,7 @@
   "keywords": [
     "nbh"
   ],
+  "private": true,
   "author": "Solveig løvhaug",
   "license": "ISC"
 }
